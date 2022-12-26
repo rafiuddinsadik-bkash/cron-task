@@ -1,5 +1,5 @@
 data "aws_internet_gateway" "default" {
-  internet_gateway_id = "igw-94c174ec"
+  internet_gateway_id = var.igw_id
 }
 
 resource "aws_route_table" "public" {

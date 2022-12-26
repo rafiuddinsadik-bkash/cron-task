@@ -11,3 +11,7 @@ variable "instance_type" {
 variable "ec2-name" {
   default = "cron-date"
 }
+
+variable "igw_id"{
+  default = "igw-94c174ec"
+}
