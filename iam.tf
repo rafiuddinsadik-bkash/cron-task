@@ -8,7 +8,7 @@ resource "aws_iam_role" "iam_role" {
     {
       "Action": "sts:AssumeRole",
       "Principal": {
-        "Service": "ec2.amazonaws.com",
+        "Service": "ec2.amazonaws.com"
         
       },
       "Effect": "Allow",
@@ -41,6 +41,7 @@ resource "aws_iam_role_policy" "iam_policy" {
   "Statement": [
     {
       "Action": [
+        "ec2:Describe*",
         "s3:*"
       ],
       "Effect": "Allow",
@@ -53,15 +54,15 @@ EOF
 
 
 
-# resource "aws_iam_role_policy_attachment" "iam_attach" {
-#   role       = aws_iam_role.iam_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-# }
+resource "aws_iam_role_policy_attachment" "iam_attach" {
+  roles       = [aws_iam_role.iam_role.name]
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
 
-# resource "aws_ssm_activation" "user" {
-#   name               = "test_ssm_activation"
-#   description        = "Test"
-#   iam_role           = aws_iam_role.iam_role.id
-#   registration_limit = "5"
-#   depends_on         = [aws_iam_role_policy_attachment.iam_attach]
-# }
+resource "aws_ssm_activation" "user" {
+  name               = "test_ssm_activation"
+  description        = "Test"
+  iam_role           = aws_iam_role.iam_role.id
+  registration_limit = "5"
+  depends_on         = [aws_iam_role_policy_attachment.iam_attach]
+}
