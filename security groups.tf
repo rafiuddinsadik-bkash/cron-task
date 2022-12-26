@@ -31,9 +31,4 @@ resource "aws_security_group" "ec2-SG" {
   }
 }
 
-depends_on = [
-    aws_default_vpc.default,
-    aws_default_subnet.default_az1
-]
-
   
