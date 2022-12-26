@@ -1,7 +1,7 @@
 #Creating a Security Group for EC2
 resource "aws_security_group" "ec2-SG" {
 
-  description = "HTTP, PING, SSH"
+  description = "HTTP, SSH"
   name = "ec2-sg"
   vpc_id = aws_default_vpc.default.id
 

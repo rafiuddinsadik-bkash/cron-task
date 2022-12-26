@@ -3,6 +3,8 @@ resource "aws_instance" "ec2_demo" {
 
   ami  = "ami-0b5eea76982371e91"
   instance_type = var.instance_type
+  iam_instance_profile = aws_iam_instance_profile.iam_profile.name
+  
   subnet_id = aws_default_subnet.default_az1.id
 
   root_block_device {
