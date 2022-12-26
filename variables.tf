@@ -1,16 +1,13 @@
 #Vars
 
-variable "region" {}
-
-variable "ami" {
-  description = "Amazon Linux AMI"
+variable "region" {
+  value = "us-east-1"
 }
 
-variable "instance_type" {}
+variable "instance_type" {
+  value = "t2.micro"
+}
 
-variable "ec2" {
-  description = "EC2 instance"
-  type        = string
-  default     = null
-  
+variable "ec2-name" {
+  value = "Demo"
 }
