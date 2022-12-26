@@ -9,5 +9,5 @@ variable "instance_type" {
 }
 
 variable "ec2-name" {
-  default = "Demo"
+  default = "cron-date"
 }
