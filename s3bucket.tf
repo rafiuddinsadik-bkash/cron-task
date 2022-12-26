@@ -1,9 +1,9 @@
-resource "aws_s3_bucket" "bkash_date_cron_fufh4rw9uhw98_bucket" {
+resource "aws_s3_bucket" "bkash_date_cron__bucket" {
   bucket = "bkash_date_cron_fufh4rw9uhw98_bucket"
 }
 
 resource "aws_s3_bucket_public_access_block" "private" {
-  bucket = aws_s3_bucket.bkash_date_cron_fufh4rw9uhw98_bucket.id
+  bucket = aws_s3_bucket.bkash_date_cron__bucket.id
 
   block_public_acls       = true
   block_public_policy     = true
