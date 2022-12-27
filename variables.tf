@@ -17,7 +17,3 @@ variable "ec2-name" {
 variable "igw_id"{
   default = "igw-94c174ec"
 }
-
-variable "eni_private_ip" {
-  default = "172.16.10.100"
-}

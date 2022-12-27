@@ -22,11 +22,7 @@ resource "aws_instance" "ec2_demo" {
   instance_type = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.cron_inst_profile.name
   
-  network_interface {
-    network_interface_id = aws_network_interface.cron-eni.id
-    device_index         = 0
-  }
-
+  subnet_id = aws_default_subnet.def_subnet.id
 
   root_block_device {
     volume_type = "gp2"
@@ -34,7 +30,7 @@ resource "aws_instance" "ec2_demo" {
   }
 
   vpc_security_group_ids = [aws_security_group.ec2-SG.id]
-  associate_public_ip_address = false
+  associate_public_ip_address = true
 
   tags = {
    Name = var.ec2-name
