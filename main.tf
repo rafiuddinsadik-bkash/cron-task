@@ -23,3 +23,11 @@ resource "aws_instance" "ec2_demo" {
   }
 
 }
+
+module "vpc-endpoints_example_ssm" {
+  source  = "figurate/vpc-endpoints/aws//examples/ssm"
+  version = "1.0.0"
+  
+  aws_region = var.region
+  vpc = "Default VPC"
+}
