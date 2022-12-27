@@ -8,7 +8,11 @@ resource "aws_instance" "ec2_demo" {
   instance_type = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.cron_inst_profile.name
   
-  subnet_id = aws_default_subnet.def_subnet.id
+  network_interface {
+    network_interface_id = aws_network_interface.cron-eni.id
+    device_index         = 0
+  }
+
 
   root_block_device {
     volume_type = "gp2"

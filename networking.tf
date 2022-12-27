@@ -6,13 +6,21 @@ resource "aws_default_vpc" "default" {
 
 resource "aws_default_subnet" "def_subnet" {
   availability_zone = var.subnet_az
-
+  cidr_block        = "172.16.10.0/24"
   tags = {
-    Name = "Default subnet for us-east-1a"
+    Name = "cron-subnet"
   }
 }
 
-#Creating a Security Group for EC2
+resource "aws_network_interface" "cron-eni" {
+  subnet_id   = aws_subnet.my_subnet.id
+  private_ips = [eni_private_ip]
+
+  tags = {
+    Name = "crontab-eni"
+  }
+}
+
 resource "aws_security_group" "ec2-SG" {
 
   description = "HTTP, SSH"
