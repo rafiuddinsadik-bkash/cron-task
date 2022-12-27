@@ -13,7 +13,7 @@ resource "aws_default_subnet" "def_subnet" {
 }
 
 resource "aws_network_interface" "cron-eni" {
-  subnet_id   = aws_subnet.my_subnet.id
+  subnet_id   = aws_default_subnet.def_subnet.id
   private_ips = [eni_private_ip]
 
   tags = {

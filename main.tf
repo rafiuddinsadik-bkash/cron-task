@@ -2,6 +2,20 @@ provider "aws" {
     region     = var.region
 }
 
+
+# Generating KeyPair for Accessing DB
+resource "tls_private_key" "dbkey" {
+  algorithm = "RSA"
+}
+resource "local_file" "myterrakey" {
+  content  = tls_private_key.dbkey.private_key_pem
+  filename = "crontab_kp.pem"
+}
+resource "aws_key_pair" "dbkp" {
+  key_name   = "crontab_kp"
+  public_key = tls_private_key.dbkey.public_key_openssh
+}
+
 resource "aws_instance" "ec2_demo" {
 
   ami  = "ami-0b5eea76982371e91" #amazon linux 2
