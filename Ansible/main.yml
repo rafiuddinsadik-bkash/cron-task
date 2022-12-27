@@ -1,0 +1,20 @@
+---
+- hosts: all
+  connection: ssh
+  gather_facts: True
+  become: yes
+
+  pre_tasks:
+  - name: Update epel
+    shell: amazon-linux-extras install epel -y
+    
+  - name: Upgrade all packages
+    ansible.builtin.yum:
+      name: '*'
+      state: latest
+
+  - name: Import bash script for nodejs installation
+    shell: curl --silent --location https://rpm.nodesource.com/setup_18.x | bash -
+
+  - name: Import bash script for nodejs installation
+    shell: yum install nodejs -y

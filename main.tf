@@ -24,6 +24,8 @@ resource "aws_instance" "ec2_demo" {
   
   subnet_id = aws_default_subnet.def_subnet.id
 
+  key_name = aws_key_pair.dbkp.key_name
+
   root_block_device {
     volume_type = "gp2"
     volume_size = "100"
