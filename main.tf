@@ -41,12 +41,3 @@ resource "aws_instance" "ec2_demo" {
   }
 
 }
-
-module "ssm-vpc-endpoint" {
-  source  = "bayupw/ssm-vpc-endpoint/aws"
-  version = "1.0.1"
-  
-  vpc_id = aws_default_vpc.default.id
-  vpc_subnet_ids = aws_default_subnet.def_subnet.id
-  custom_ingress_cidrs = ["0.0.0.0/0"]
-}
