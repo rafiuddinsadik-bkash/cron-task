@@ -24,10 +24,11 @@ resource "aws_instance" "ec2_demo" {
 
 }
 
-module "vpc-endpoints_example_ssm" {
-  source  = "figurate/vpc-endpoints/aws//examples/ssm"
-  version = "1.0.0"
+module "ssm-vpc-endpoint" {
+  source  = "bayupw/ssm-vpc-endpoint/aws"
+  version = "1.0.1"
   
-  aws_region = var.region
-  vpc = "Default VPC"
+  vpc_id = aws_default_vpc.default.id
+  vpc_subnet_ids = aws_default_subnet.def_subnet.id
+  custom_ingress_cidrs = ["0.0.0.0/0"]
 }
