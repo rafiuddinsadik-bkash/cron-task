@@ -1,8 +1,22 @@
+resource "aws_default_vpc" "default" {
+  tags = {
+    Name = "Default VPC"
+  }
+}
+
+resource "aws_default_subnet" "def_subnet" {
+  availability_zone = var.subnet_az
+
+  tags = {
+    Name = "Default subnet for us-east-1a"
+  }
+}
+
 #Creating a Security Group for EC2
 resource "aws_security_group" "ec2-SG" {
 
   description = "HTTP, SSH"
-  name = "ec2-sg"
+  name = "SG-CronTab-DateEC2"
   vpc_id = aws_default_vpc.default.id
 
   ingress {
@@ -21,7 +35,6 @@ resource "aws_security_group" "ec2-SG" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
   egress {
     description = "output from webserver"
     from_port   = 0
@@ -30,5 +43,3 @@ resource "aws_security_group" "ec2-SG" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-  

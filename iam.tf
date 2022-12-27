@@ -1,22 +1,22 @@
 resource "aws_iam_role" "iam_role" {
   name = "iam_role"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  assume_role_policy = jsonencode(
     {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com",
-        "Service": "ssm.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": "sts:AssumeRole",
+          "Principal": {
+            "Service": "ec2.amazonaws.com",
+            "Service": "ssm.amazonaws.com"
+          },
+          "Effect": "Allow",
+          "Sid": ""
+        }
+      ]
     }
-  ]
-}
-EOF
+  )
 
   tags = {
       tag-key = "tag-value"
@@ -35,21 +35,21 @@ resource "aws_iam_role_policy" "iam_policy" {
   name = "iam_policy"
   role = aws_iam_role.iam_role.id
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  policy = jsonencode(
     {
-      "Action": [
-        "ec2:Describe*",
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": [
+            "ec2:Describe*",
+            "s3:*"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+      ]
     }
-  ]
-}
-EOF
+  )
 }
 
 

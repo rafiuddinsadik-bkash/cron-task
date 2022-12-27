@@ -1,7 +1,10 @@
+provider "aws" {
+    region     = var.region
+}
 
 resource "aws_instance" "ec2_demo" {
 
-  ami  = "ami-0b5eea76982371e91"
+  ami  = "ami-0b5eea76982371e91" #amazon linux 2
   instance_type = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.iam_profile.name
   
@@ -20,6 +23,3 @@ resource "aws_instance" "ec2_demo" {
   }
 
 }
-
-
-

@@ -1,7 +1,9 @@
-#Vars
-
 variable "region" {
   default = "us-east-1"
+}
+
+variable "subnet_az" {
+  default = "us-east-1a"
 }
 
 variable "instance_type" {
