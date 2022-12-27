@@ -25,8 +25,8 @@ resource "aws_iam_role" "crontab_role" {
 }
 
 #giving full access to S3 bucket
-resource "aws_iam_role_policy" "iam_policy" {
-  name = "iam_policy"
+resource "aws_iam_role_policy" "s3_crontab_bucket" {
+  name = "s3_bucket_specific_policy"
   role = aws_iam_role.crontab_role.id
 
   policy = jsonencode(
@@ -53,6 +53,7 @@ resource "aws_iam_role_policy_attachment" "test_attach" {
     "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
     "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
     "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM",
+    "arn:aws:iam::aws:policy/AmazonSSMFullAccess",
   ])
 
   policy_arn = each.value
