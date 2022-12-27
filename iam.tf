@@ -1,5 +1,10 @@
-resource "aws_iam_role" "iam_role" {
-  name = "iam_role"
+resource "aws_iam_instance_profile" "cron_inst_profile" {
+  name = "cron-inst-profile"
+  role = aws_iam_role.crontab_role.name
+}
+
+resource "aws_iam_role" "crontab_role" {
+  name = "crontab-date-ec2-role"
 
   assume_role_policy = jsonencode(
     {
@@ -17,23 +22,12 @@ resource "aws_iam_role" "iam_role" {
       ]
     }
   )
-
-  tags = {
-      tag-key = "tag-value"
-  }
 }
-
-
-resource "aws_iam_instance_profile" "iam_profile" {
-  name = "iam_profile"
-  role = aws_iam_role.iam_role.name
-}
-
 
 #giving full access to S3 bucket
 resource "aws_iam_role_policy" "iam_policy" {
   name = "iam_policy"
-  role = aws_iam_role.iam_role.id
+  role = aws_iam_role.crontab_role.id
 
   policy = jsonencode(
     {
@@ -41,11 +35,10 @@ resource "aws_iam_role_policy" "iam_policy" {
       "Statement": [
         {
           "Action": [
-            "ec2:Describe*",
             "s3:*"
           ],
           "Effect": "Allow",
-          "Resource": "*"
+          "Resource": "arn:aws:s3:::bkash-date-cron-fufh4rw9uhw98-yesbucket"
         }
       ]
     }
@@ -55,15 +48,13 @@ resource "aws_iam_role_policy" "iam_policy" {
 
 
 resource "aws_iam_role_policy_attachment" "test_attach" {
-  role       = aws_iam_role.iam_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-}
+  role       = aws_iam_role.crontab_role.name
+  for_each = toset([
+    "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM",
+  ])
 
-resource "aws_ssm_activation" "user" {
-  name               = "test_ssm_activation"
-  description        = "Test"
-  iam_role           = aws_iam_role.iam_role.id
-  registration_limit = "5"
-  depends_on         = [aws_iam_role_policy_attachment.test_attach]
+  policy_arn = each.value
 }
 
