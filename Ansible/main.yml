@@ -19,3 +19,9 @@
 
   - name: Import bash script for nodejs installation
     shell: yum install nodejs -y
+
+  - name: Copy JS Script to remote
+    synchronize:
+      src: ../script/task.js
+      dest: /tmp/task.js
+      recursive: no  
