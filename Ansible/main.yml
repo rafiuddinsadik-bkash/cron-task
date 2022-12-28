@@ -5,10 +5,7 @@
   gather_facts: True
   become: yes
 
-  pre_tasks:
-  - name: Update epel
-    shell: amazon-linux-extras install epel -y
-    
+  tasks:
   - name: Upgrade all packages
     ansible.builtin.yum:
       name: '*'
@@ -24,4 +21,4 @@
     synchronize:
       src: ../script/task.js
       dest: /tmp/task.js
-      recursive: no  
+      recursive: no 
