@@ -1,8 +1,3 @@
-resource "aws_iam_instance_profile" "cron_inst_profile" {
-  name = "cron-inst-profile"
-  role = aws_iam_role.crontab_role.name
-}
-
 resource "aws_iam_role" "crontab_role" {
   name = "crontab-date-ec2-role"
 
@@ -45,8 +40,6 @@ resource "aws_iam_role_policy" "s3_crontab_bucket" {
   )
 }
 
-
-
 resource "aws_iam_role_policy_attachment" "test_attach" {
   role       = aws_iam_role.crontab_role.name
   for_each = toset([
@@ -57,5 +50,10 @@ resource "aws_iam_role_policy_attachment" "test_attach" {
   ])
 
   policy_arn = each.value
+}
+
+resource "aws_iam_instance_profile" "cron_inst_profile" {
+  name = "cron-inst-profile"
+  role = aws_iam_role.crontab_role.name
 }
 
