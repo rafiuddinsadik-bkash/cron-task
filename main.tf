@@ -22,7 +22,7 @@ resource "aws_instance" "ec2_demo" {
   instance_type = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.cron_inst_profile.name
   
-  subnet_id = aws_default_subnet.def_subnet.id
+  # subnet_id = aws_default_subnet.def_subnet.id
 
   key_name = aws_key_pair.dbkp.key_name
 

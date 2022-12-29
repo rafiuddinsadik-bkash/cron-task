@@ -5,12 +5,12 @@ resource "aws_default_vpc" "default" {
   }
 }
 
-resource "aws_default_subnet" "def_subnet" {
-  availability_zone = var.subnet_az
-  tags = {
-    Name = "cron-subnet"
-  }
-}
+# resource "aws_default_subnet" "def_subnet" {
+#   availability_zone = var.subnet_az
+#   tags = {
+#     Name = "cron-subnet"
+#   }
+# }
 
 resource "aws_security_group" "ec2-SG" {
 
